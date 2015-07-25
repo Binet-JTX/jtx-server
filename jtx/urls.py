@@ -3,10 +3,13 @@ from django.contrib import admin
 
 from rest_framework import routers
 
+from jtx_core.models import TagViewSet, TagKeyViewSet
 from jtx_events.models import EventViewSet
 
 router = routers.DefaultRouter()
 
+router.register(r'tags', TagViewSet)
+router.register(r'tagkeys', TagKeyViewSet)
 router.register(r'events', EventViewSet)
 
 urlpatterns = patterns(
