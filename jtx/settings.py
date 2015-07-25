@@ -37,8 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
-    'jtx_events'
+    'corsheaders',
+    'debug_toolbar',
+
+    'jtx_events',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,7 +93,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr_FR'
 
 TIME_ZONE = 'UTC'
 
@@ -104,3 +108,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Rest framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+        # 'bars_core.perms.RootBarPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.AllowAny',
+        # 'bars_core.perms.PerBarPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoObjectPermissions',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # TODO: remove
+        'rest_framework.authentication.BasicAuthentication',  # TODO: remove
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter'
+    ),
+    'PAGE_SIZE': 10
+}
+
+# CORS headers
+
+CORS_ORIGIN_ALLOW_ALL = True
