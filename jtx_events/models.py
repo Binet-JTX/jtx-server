@@ -10,7 +10,7 @@ class Event(models.Model):
     An event covered by the JTX, or during which have taken place one or more projections
     """
     class Meta:
-        app_label: 'jtx_event'
+        app_label = 'jtx_event'
     title = models.CharField(max_length=254)
     description = models.TextField()
     begin_date = models.DateTimeField(default=datetime.datetime.now())
@@ -27,8 +27,6 @@ class Event(models.Model):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-
-    _type = VirtualField("Event")
 
 
 class EventViewSet(viewsets.ModelViewSet):
