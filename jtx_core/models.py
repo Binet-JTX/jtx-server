@@ -34,18 +34,16 @@ class Tag(models.Model):
     key = models.ForeignKey(TagKey)
     value = models.CharField(max_length=254)
 
-    def get_name(self):
-        return self.key.name
-
     def __str__(self):
         return '%s : %s' % (self.key.name, self.value)
 
 
 class TagSerializer(serializers.ModelSerializer):
-    key = serializers.StringRelatedField()
-
     class Meta:
         model = Tag
+
+    _type = serializers.CharField(source = 'key.name', read_only=True)
+    key = serializers.PrimaryKeyRelatedField(queryset=TagKey.objects.all(), write_only=True)
 
 
 class TagViewSet(viewsets.ModelViewSet):
