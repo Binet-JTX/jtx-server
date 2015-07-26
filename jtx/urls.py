@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from rest_framework import routers
 
-from jtx_core.models import TagViewSet, TagKeyViewSet
+from jtx_core.models.tag import TagViewSet, TagKeyViewSet
 from jtx_events.models import EventViewSet
 
 router = routers.DefaultRouter()

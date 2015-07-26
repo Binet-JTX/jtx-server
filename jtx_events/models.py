@@ -14,8 +14,8 @@ class Event(models.Model):
     """
     title = models.CharField(max_length=254)
     description = models.TextField(blank=True)
-    begin_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1))
-    end_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1))
+    begin_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
+    end_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
