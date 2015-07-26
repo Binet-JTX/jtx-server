@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
 
     'jtx_core',
+    'jtx_video',
     'jtx_events',
 )
 
