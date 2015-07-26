@@ -1,0 +1,19 @@
+language: python
+python:
+  - "3.4"
+install:
+  - "pip install coveralls"
+  - "pip install -r requirements.txt"
+script: "coverage run --source='.' --omit='scripts/*,jtx/wsgi.py,*/migrations/*,*/__init__.py,manage.py' manage.py test"
+after_success: coveralls
+
+notifications:
+  irc:
+    channels:
+      - "irc.rezosup.org#jtx-dev"
+    template:
+      - "%{repository_name}/%{branch} %{commit} %{author}: %{message}"
+    on_success: change
+    on_failure: always
+    use_notice: true
+    skip_join: true
