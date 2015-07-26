@@ -13,7 +13,7 @@ class Event(models.Model):
     An event covered by the JTX, or during which have taken place one or more projections
     """
     title = models.CharField(max_length=254)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     begin_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1))
     end_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1))
     created_at = models.DateTimeField(auto_now_add=True)
