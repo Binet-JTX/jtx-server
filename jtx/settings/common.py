@@ -40,7 +40,6 @@ INSTALLED_APPS = (
 
     'rest_framework',
     'corsheaders',
-    'debug_toolbar',
 
     'jtx_core',
     'jtx_video',
@@ -79,17 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'jtx.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jtx',
-        'USER': 'root',
-        'PASSWORD': 'root',
-    }
-}
 
 
 # Internationalization

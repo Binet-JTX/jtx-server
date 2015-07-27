@@ -3,3 +3,5 @@ env
 *.pyc
 __pycache__
 static/
+jtx/settings/dev_server.py
+jtx/wsgi.py
