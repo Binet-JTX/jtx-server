@@ -4,7 +4,7 @@ python:
 install:
   - "pip install coveralls"
   - "pip install -r requirements.txt"
-  - "pip install mysql-python"
+  - "apt-get install python3-dev"
 script: "coverage run --source='.' --omit='jtx/wsgi.py,jtx/settings/*,*/migrations/*,*/__init__.py,manage.py' manage.py test"
 after_success: coveralls
 
