@@ -12,7 +12,7 @@ install:
   - "pip install coveralls"
   - "pip install -r requirements.txt"
   - "pip install mysqlclient"
-script: "coverage run --source='.' --omit='jtx/wsgi.py,jtx/settings/*,*/migrations/*,*/__init__.py,manage.py' manage.py test --setings=jtx.settings.travis"
+script: "coverage run --source='.' --omit='jtx/wsgi.py,jtx/settings/*,*/migrations/*,*/__init__.py,manage.py' manage.py test --settings=jtx.settings.travis"
 after_success: coveralls
 
 notifications:
