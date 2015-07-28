@@ -8,6 +8,7 @@ addons:
     - python-mysqldb
 install:
   - "pip install coveralls"
+  - "pip instal MySQL-python"
   - "pip install -r requirements.txt"
 script: "coverage run --source='.' --omit='jtx/wsgi.py,jtx/settings/*,*/migrations/*,*/__init__.py,manage.py' manage.py test"
 after_success: coveralls
