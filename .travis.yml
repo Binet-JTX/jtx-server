@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
     - python3-dev
+    - python-mysqldb
 install:
   - "pip install coveralls"
   - "pip install -r requirements.txt"
