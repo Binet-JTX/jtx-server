@@ -125,7 +125,7 @@ REST_FRAMEWORK = {
         'rest_framework.serializers.HyperlinkedModelSerializer',
 
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAdminUser',
+        # 'rest_framework.permissions.IsAdminUser',
         # 'bars_core.perms.RootBarPermissionsOrAnonReadOnly',
         'rest_framework.permissions.AllowAny',
         # 'bars_core.perms.PerBarPermissionsOrAnonReadOnly',
