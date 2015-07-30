@@ -1,3 +1,5 @@
 from django.contrib import admin
+from jtx_core.models.tag import Tag, TagKey
 
-# Register your models here.
+admin.site.register(Tag)
+admin.site.register(TagKey)
