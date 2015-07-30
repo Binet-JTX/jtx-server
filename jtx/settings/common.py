@@ -149,3 +149,7 @@ JWT_AUTH = {
 # CORS headers
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Custom User model
+
+AUTH_USER_MODEL = 'jtx_core.User'
