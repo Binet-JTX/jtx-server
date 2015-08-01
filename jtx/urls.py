@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from rest_framework import routers
 
+from jtx_core.auth import obtain_jwt_token
 from jtx_core.models.user import UserViewSet
 from jtx_core.models.tag import TagViewSet, TagKeyViewSet
 from jtx_video.models.video import VideoViewSet, VideoStatusViewSet
@@ -21,7 +22,7 @@ urlpatterns = patterns(
     '',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/', 'rest_framework_jwt.views.obtain_jwt_token'),
+    url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^docs/', include('rest_framework_swagger.urls')),
     url(r'^', include(router.urls))
 )
