@@ -28,8 +28,8 @@ class User(AbstractBaseUser):
         app_label = 'jtx_core'
 
     email = models.EmailField(max_length=254, unique=True)
-    last_name = models.CharField(max_length=254)
-    first_name = models.CharField(max_length=254)
+    last_name = models.CharField(max_length=254, blank=True)
+    first_name = models.CharField(max_length=254, blank=True)
     username = models.CharField(max_length=100, blank=True)
     promotion = models.CharField(max_length=100, blank=True)
     poste = models.CharField(max_length=100, blank=True)
