@@ -9,14 +9,18 @@ class UserManager(BaseUserManager):
     def get_queryset(self):
         return super(UserManager, self).get_queryset().prefetch_related()
 
-    def create_user(self, email, password):
+    def create_user(self, email, password, last_name, first_name):
         user = self.model(email=email)
+        user.last_name = last_name
+        user.first_name = first_name
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, last_name, first_name):
         user = self.create_user(email, password)
+        user.last_name = last_name
+        user.first_name = first_name
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
@@ -43,6 +47,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['last_name', 'first_name', ]
 
     def has_perm(self, perm, obj=None):
         if self.is_active and self.is_superuser:
