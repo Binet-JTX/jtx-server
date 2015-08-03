@@ -94,7 +94,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'jtx.wsgi.application'
 
 
-# APPEND_SLASH = False
+
 
 
 # Internationalization
@@ -126,24 +126,22 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': (
         # 'rest_framework.permissions.IsAdminUser',
-        'rest_framework.permissions.IsAuthenticated',
-        # 'rest_framework.permissions.AllowAny',
-
+        # 'bars_core.perms.RootBarPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.AllowAny',
+        # 'bars_core.perms.PerBarPermissionsOrAnonReadOnly',
+        # 'rest_framework.permissions.DjangoObjectPermissions',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',  # TODO: remove
         'rest_framework.authentication.BasicAuthentication',  # TODO: remove
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter'
     ),
-}
-
-import datetime
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=7*24)
+    # 'PAGE_SIZE': 10
 }
 
 # CORS headers
