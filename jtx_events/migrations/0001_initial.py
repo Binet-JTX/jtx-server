@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.utils.timezone import utc
 import datetime
 
 
@@ -14,11 +15,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Event',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('title', models.CharField(max_length=254)),
-                ('description', models.TextField()),
-                ('begin_date', models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0))),
-                ('end_date', models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0))),
+                ('description', models.TextField(blank=True)),
+                ('begin_date', models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, tzinfo=utc))),
+                ('end_date', models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, tzinfo=utc))),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('deleted_at', models.DateTimeField(null=True)),

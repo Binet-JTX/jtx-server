@@ -125,25 +125,28 @@ REST_FRAMEWORK = {
         'rest_framework.serializers.HyperlinkedModelSerializer',
 
     'DEFAULT_PERMISSION_CLASSES': (
-        # 'rest_framework.permissions.IsAdminUser',
-        # 'bars_core.perms.RootBarPermissionsOrAnonReadOnly',
-        'rest_framework.permissions.AllowAny',
-        # 'bars_core.perms.PerBarPermissionsOrAnonReadOnly',
-        # 'rest_framework.permissions.DjangoObjectPermissions',
-        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',  # TODO: remove
         'rest_framework.authentication.BasicAuthentication',  # TODO: remove
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter'
-    ),
-    # 'PAGE_SIZE': 10
+    )
+}
+
+import datetime
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=7 * 24),  # Todo: temporary
 }
 
 # CORS headers
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Custom User model
+
+AUTH_USER_MODEL = 'jtx_core.User'
