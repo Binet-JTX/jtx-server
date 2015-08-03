@@ -23,4 +23,4 @@ class EventTests(APITestCase):
     def test_create_event(self):
         # Unauthenticated
         response = self.client.post('/events/', self.create_data)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 401)
