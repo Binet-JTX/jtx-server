@@ -11,16 +11,34 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='User',
+            fields=[
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
+                ('password', models.CharField(verbose_name='password', max_length=128)),
+                ('last_login', models.DateTimeField(null=True, verbose_name='last login', blank=True)),
+                ('email', models.EmailField(unique=True, max_length=254)),
+                ('first_name', models.CharField(blank=True, max_length=128)),
+                ('last_name', models.CharField(blank=True, max_length=128)),
+                ('pseudo', models.CharField(blank=True, max_length=128)),
+                ('promotion', models.CharField(blank=True, max_length=100)),
+                ('duty', models.CharField(blank=True, max_length=254)),
+                ('is_active', models.BooleanField(default=True)),
+                ('last_modified', models.DateTimeField(auto_now=True)),
+                ('is_superuser', models.BooleanField(default=False)),
+                ('is_staff', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Tag',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('value', models.CharField(max_length=254)),
             ],
         ),
         migrations.CreateModel(
             name='TagKey',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(max_length=50)),
             ],
         ),
@@ -28,5 +46,9 @@ class Migration(migrations.Migration):
             model_name='tag',
             name='key',
             field=models.ForeignKey(to='jtx_core.TagKey'),
+        ),
+        migrations.AlterUniqueTogether(
+            name='tag',
+            unique_together=set([('key', 'value')]),
         ),
     ]
