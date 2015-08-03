@@ -10,12 +10,17 @@ class UserManager(BaseUserManager):
         return super(UserManager, self).get_queryset()
 
     def create_user(self, email, password):
-        user = self.model(email=email)
+        """Create and save a User with the given email and password"""
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(email=self.normalize_email(email))
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(self, email, password):
+        """Create and save a User with the given email and password, and give it full privileges"""
         user = self.create_user(email, password)
         user.is_superuser = True
         user.is_staff = True
@@ -69,6 +74,9 @@ class User(AbstractBaseUser):
         return self.pseudo
 
     def get_full_name(self):
+        return "%s %s" % (self.first_name, self.last_name)
+
+    def __str__(self):
         return "%s %s" % (self.first_name, self.last_name)
 
 
