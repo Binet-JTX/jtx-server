@@ -128,9 +128,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',  # TODO: remove
-        'rest_framework.authentication.BasicAuthentication',  # TODO: remove
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',  # TODO: remove
+        'rest_framework.authentication.SessionAuthentication',  # TODO: remove
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
