@@ -15,7 +15,7 @@ class Video(models.Model):
     date_diffusion = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
     views = models.IntegerField(default=0)
     complete = models.BooleanField(default=False)
-    poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True)
+    poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
@@ -34,6 +34,10 @@ class Video(models.Model):
                 if orig.poster != self.poster:
                     orig.poster.delete()
                     add_poster = True
+        else:
+            if self.pk:
+                orig = Video.objects.get(pk=self.pk)
+                self.poster = orig.poster
 
         if add_poster:
             extension = re.sub(r"(.*)\.(?P<ext>[a-zA-Z]+)$", r"\g<ext>", self.poster.name) 
