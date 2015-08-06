@@ -42,9 +42,6 @@ class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
 
-    _type = serializers.CharField(source = 'key.name', read_only=True)
-    key = serializers.PrimaryKeyRelatedField(queryset=TagKey.objects.all(), write_only=True)
-
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
