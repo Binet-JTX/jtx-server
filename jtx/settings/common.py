@@ -57,8 +57,8 @@ INSTALLED_APPS = (
     'corsheaders',
 
     'jtx_core',
-    'jtx_video',
     'jtx_events',
+    'jtx_video',
 )
 
 MIDDLEWARE_CLASSES = (

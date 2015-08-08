@@ -10,6 +10,9 @@ from rest_framework.response import Response
 
 
 class Video(models.Model):
+    class Meta:
+        app_label = "jtx_video"
+    
     title = models.CharField(max_length=254)
     description = models.TextField(blank=True)
     date_diffusion = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
