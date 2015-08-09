@@ -24,3 +24,7 @@ class VideoProjection(models.Model):
     video = models.ForeignKey(Video)
     projection = models.ForeignKey(Projection)
     rank = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return self.projection.__str__() + " (" + "{0:0>3}".format(self.rank) + ") " + self.video.__str__()
+
