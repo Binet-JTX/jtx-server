@@ -8,7 +8,7 @@ from rest_framework import routers
 
 from jtx_core.models.user import UserViewSet
 from jtx_core.models.tag import TagViewSet, TagKeyViewSet
-from jtx_video.views import VideoViewSet
+from jtx_video.views import VideoViewSet, ProjectionViewSet
 from jtx_events.models import EventViewSet
 
 router = routers.DefaultRouter()
@@ -17,6 +17,7 @@ router.register(r'users', UserViewSet)
 router.register(r'tags', TagViewSet)
 router.register(r'tagkeys', TagKeyViewSet)
 router.register(r'videos', VideoViewSet)
+router.register(r'projections', ProjectionViewSet)
 router.register(r'events', EventViewSet)
 
 urlpatterns = patterns(

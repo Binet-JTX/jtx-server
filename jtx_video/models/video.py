@@ -4,9 +4,7 @@ import re
 from django.db import models
 from django.utils import timezone, text
 
-from rest_framework import serializers
-
-from jtx_video.models.file import VideoFileSerializer, SubtitleFileSerializer
+from jtx_video.models.projection import Projection
 
 
 class Video(models.Model):
@@ -16,13 +14,14 @@ class Video(models.Model):
     title = models.CharField(max_length=254)
     description = models.TextField(blank=True)
     date_diffusion = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
-    views = models.IntegerField(default=0)
+    views = models.PositiveIntegerField(default=0)
     complete = models.BooleanField(default=False)
     poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
+    deleted_at = models.DateTimeField(blank=True, null=True)
     deleted = models.BooleanField(default=False)
+    projection = models.ForeignKey(Projection, blank=True, null=True, related_name='videos')
 
     def __str__(self):
         return self.title
@@ -48,13 +47,5 @@ class Video(models.Model):
 
         super(Video, self).save(*args, **kwargs)
 
-
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        read_only_fields = ('views', 'deleted_at', 'deleted', )
-
-    files = VideoFileSerializer(many=True, read_only=True)
-    subtitles = SubtitleFileSerializer(read_only=True)
 
 

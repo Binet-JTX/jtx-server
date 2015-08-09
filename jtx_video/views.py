@@ -5,7 +5,9 @@ from django.http import Http404
 from rest_framework import viewsets, decorators
 from rest_framework.response import Response
 
-from jtx_video.models.video import Video, VideoSerializer
+from jtx_video.models.video import Video
+from jtx_video.models.projection import Projection
+from jtx_video.serializers import VideoSerializer, ProjectionSerializer
 
 
 class VideoViewSet(viewsets.ModelViewSet):
@@ -55,4 +57,12 @@ class VideoViewSet(viewsets.ModelViewSet):
 
         serializer = self.get_serializer_class()(video)
         return Response(serializer.data)
+
+
+class ProjectionViewSet(viewsets.ModelViewSet):
+    queryset = Projection.objects.all()
+    serializer_class = ProjectionSerializer
+    filter_fields = ('date', )
+    search_fields = ('title', )
+
 
