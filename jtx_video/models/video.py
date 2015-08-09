@@ -3,10 +3,10 @@ import re
 
 from django.db import models
 from django.utils import timezone, text
-from django.http import Http404
 
-from rest_framework import serializers, viewsets, decorators
-from rest_framework.response import Response
+from rest_framework import serializers
+
+from jtx_video.models.file import VideoFileSerializer, SubtitleFileSerializer
 
 
 class Video(models.Model):
@@ -54,52 +54,7 @@ class VideoSerializer(serializers.ModelSerializer):
         model = Video
         read_only_fields = ('views', 'deleted_at', 'deleted', )
 
+    files = VideoFileSerializer(many=True, read_only=True)
+    subtitles = SubtitleFileSerializer(read_only=True)
 
-class VideoViewSet(viewsets.ModelViewSet):
-    queryset = Video.objects.all()
-    serializer_class = VideoSerializer
-    filter_fields = {
-        'date_diffusion': ['lte', 'gte'],
-    }
-    search_fields = ('title', 'description')
-
-    @decorators.detail_route(methods=['put'])
-    def remove(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.deleted = True
-        video.deleted_at = timezone.now()
-        video.save()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
-
-    @decorators.detail_route(methods=['put'])
-    def restore(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.deleted = False
-        video.deleted_at = None
-        video.save()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
-
-    @decorators.detail_route(methods=['put'])
-    def remove_poster(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.poster.delete()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
 

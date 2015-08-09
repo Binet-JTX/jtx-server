@@ -8,7 +8,7 @@ from rest_framework import routers
 
 from jtx_core.models.user import UserViewSet
 from jtx_core.models.tag import TagViewSet, TagKeyViewSet
-from jtx_video.models.video import VideoViewSet
+from jtx_video.views import VideoViewSet
 from jtx_events.models import EventViewSet
 
 router = routers.DefaultRouter()
