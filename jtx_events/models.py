@@ -2,10 +2,8 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
-from django.http import Http404
 
-from rest_framework import serializers, viewsets, decorators
-from rest_framework.response import Response
+from rest_framework import serializers
 
 
 class Event(models.Model):
@@ -16,10 +14,6 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     begin_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
     end_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(null=True)
-    deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
@@ -36,39 +30,4 @@ class EventSerializer(serializers.ModelSerializer):
         return data
 
 
-class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
-    serializer_class = EventSerializer
-    filter_fields = {
-        'begin_date': ['lte', 'gte'],
-        'end_date': ['lte', 'gte'],
-    }
-    search_fields = ('title', 'description')
 
-    @decorators.detail_route(methods=['put'])
-    def cancel(self, request, pk=None):
-        try:
-            event = Event.objects.get(pk=pk)
-        except Event.DoesNotExist:
-            raise Http404()
-
-        event.deleted = True
-        event.deleted_at = timezone.now()
-        event.save()
-
-        serializer = self.get_serializer_class()(event)
-        return Response(serializer.data)
-
-    @decorators.detail_route(methods=['put'])
-    def restore(self, request, pk=None):
-        try:
-            event = Event.objects.get(pk=pk)
-        except Event.DoesNotExist:
-            raise Http404()
-
-        event.deleted = False
-        event.deleted_at = None
-        event.save()
-
-        serializer = self.get_serializer_class()(event)
-        return Response(serializer.data)
