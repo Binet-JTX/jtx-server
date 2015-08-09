@@ -3,7 +3,7 @@ from rest_framework import serializers
 from jtx.utils import VirtualField
 from jtx_video.models.file import BaseFile, Folder, VideoFile, SubtitleFile
 from jtx_video.models.video import Video
-from jtx_video.models.projection import Projection
+from jtx_video.models.projection import Projection, VideoProjection
 
 
 class BaseFileSerializer(serializers.ModelSerializer):
@@ -55,3 +55,14 @@ class VideoSerializer(serializers.ModelSerializer):
 
 class DetailedProjectionSerializer(ProjectionSerializer):
     videos = VideoSerializer(many=True, read_only=True)
+
+    def to_representation(self, projection):
+        obj = super(DetailedProjectionSerializer, self).to_representation(projection)
+
+        videos_projs = VideoProjection.objects.filter(projection=projection)
+        for video in obj["videos"]:
+            video_proj = videos_projs.get(video=video["id"])
+            video["rank"] = video_proj.rank
+
+        return obj
+        

@@ -39,6 +39,3 @@ class Video(models.Model):
             self.poster.name = text.slugify(self.title) + "." + extension
 
         super(Video, self).save(*args, **kwargs)
-
-
-
