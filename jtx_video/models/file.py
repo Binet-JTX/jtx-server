@@ -14,35 +14,39 @@ from jtx_video.models.video import Video
 class BaseFile(models.Model):
     class Meta:
         app_label = "jtx_video"
-        abstract = True
 
     filename = models.CharField(max_length=254)
     extension = models.CharField(max_length=10, blank=True)
-    parent = models.ForeignKey('self', blank=True)
+    parent = models.ForeignKey('self', blank=True, null=True)
 
     def level(self):
-        if not self.parent:
-            return 0
-        else:
-            return 1 + level(self.parent)
+        lev = 0
+        tmp = self.parent
+        while tmp:
+            lev += 1
+            tmp = tmp.parent
+
+        return lev
 
     def path(self):
-        if not self.parent:
-            return "/"
-        else:
-            return path(self.parent) + filename
+        p = self.filename
+        tmp = self.parent
+        while tmp:
+            p = tmp.filename + "/" + p
+            tmp = tmp.parent
+
+        return p
 
     def __str__(self):
         return self.filename
 
 
 class Folder(BaseFile):
-    pass
     def nb_elements(self):
-        return len(self.children_set)
+        return len(self.basefile_set.all())
 
-    def id_empty(self):
-        return self.nb_elements(self) == 0
+    def is_empty(self):
+        return self.nb_elements() == 0
 
 
 class VideoFile(BaseFile):
