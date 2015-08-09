@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from jtx_video.models.video import Video
 from jtx_video.models.projection import Projection
-from jtx_video.serializers import VideoSerializer, ProjectionSerializer
+from jtx_video.serializers import VideoSerializer, ProjectionSerializer, DetailedProjectionSerializer
 
 
 class VideoViewSet(viewsets.ModelViewSet):
@@ -64,5 +64,10 @@ class ProjectionViewSet(viewsets.ModelViewSet):
     serializer_class = ProjectionSerializer
     filter_fields = ('date', )
     search_fields = ('title', )
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = DetailedProjectionSerializer(instance)
+        return Response(serializer.data)
 
 

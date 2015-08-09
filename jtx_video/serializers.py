@@ -50,4 +50,6 @@ class ProjectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projection
 
+
+class DetailedProjectionSerializer(ProjectionSerializer):
     videos = VideoSerializer(many=True, read_only=True)
