@@ -22,7 +22,6 @@ class Event(models.Model):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        read_only_fields = ('deleted_at', 'deleted', )
 
     def validate(self, data):
         if data['begin_date'] > data['end_date']:

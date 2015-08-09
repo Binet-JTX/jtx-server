@@ -37,18 +37,20 @@ class SubtitleFileSerializer(BaseFileSerializer):
     _type = VirtualField("SubtitleFile")
 
 
-class VideoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Video
-        read_only_fields = ('views', 'deleted_at', 'deleted', )
-
-    files = VideoFileSerializer(many=True, read_only=True)
-    subtitles = SubtitleFileSerializer(read_only=True)
-
-
 class ProjectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Projection
+        exclude = ('videos', )
+
+
+class VideoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Video
+        read_only_fields = ('views', )
+
+    files = VideoFileSerializer(many=True, read_only=True)
+    subtitles = SubtitleFileSerializer(read_only=True)
+    projections = ProjectionSerializer(many=True, read_only=True)
 
 
 class DetailedProjectionSerializer(ProjectionSerializer):

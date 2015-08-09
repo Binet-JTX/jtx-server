@@ -4,8 +4,6 @@ import re
 from django.db import models
 from django.utils import timezone, text
 
-from jtx_video.models.projection import Projection
-
 
 class Video(models.Model):
     class Meta:
@@ -17,11 +15,6 @@ class Video(models.Model):
     views = models.PositiveIntegerField(default=0)
     complete = models.BooleanField(default=False)
     poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    deleted_at = models.DateTimeField(blank=True, null=True)
-    deleted = models.BooleanField(default=False)
-    projection = models.ForeignKey(Projection, blank=True, null=True, related_name='videos')
 
     def __str__(self):
         return self.title

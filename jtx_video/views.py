@@ -19,34 +19,6 @@ class VideoViewSet(viewsets.ModelViewSet):
     search_fields = ('title', 'description')
 
     @decorators.detail_route(methods=['put'])
-    def remove(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.deleted = True
-        video.deleted_at = timezone.now()
-        video.save()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
-
-    @decorators.detail_route(methods=['put'])
-    def restore(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.deleted = False
-        video.deleted_at = None
-        video.save()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
-
-    @decorators.detail_route(methods=['put'])
     def remove_poster(self, request, pk=None):
         try:
             video = Video.objects.get(pk=pk)
