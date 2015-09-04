@@ -59,10 +59,15 @@ class DetailedProjectionSerializer(ProjectionSerializer):
     def to_representation(self, projection):
         obj = super(DetailedProjectionSerializer, self).to_representation(projection)
 
-        videos_projs = VideoProjection.objects.filter(projection=projection)
-        for video in obj["videos"]:
-            video_proj = videos_projs.get(video=video["id"])
-            video["rank"] = video_proj.rank
+        vps = list(self.context['video_projections'].values_list('video', 'rank'))
+        for v in obj['videos']:
+            for vp in vps:
+                if vp[0] == v['id']:
+                    v['rank'] = vp[1]
+        
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(vps)
 
         return obj
         

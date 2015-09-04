@@ -21,8 +21,8 @@ class Projection(models.Model):
 
 
 class VideoProjection(models.Model):
-    video = models.ForeignKey(Video)
-    projection = models.ForeignKey(Projection)
+    video = models.ForeignKey(Video, related_name='video_projections')
+    projection = models.ForeignKey(Projection, related_name='video_projections')
     rank = models.PositiveSmallIntegerField()
 
     def __str__(self):

@@ -11,7 +11,7 @@ class Video(models.Model):
     
     title = models.CharField(max_length=254)
     description = models.TextField(blank=True)
-    date_diffusion = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
+    date_diffusion = models.DateField(default=datetime.datetime(2015, 1, 1))
     views = models.PositiveIntegerField(default=0)
     complete = models.BooleanField(default=False)
     poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True, null=True)

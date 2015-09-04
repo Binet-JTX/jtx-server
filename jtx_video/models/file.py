@@ -4,8 +4,9 @@ from django.db import models
 class BaseFile(models.Model):
     class Meta:
         app_label = "jtx_video"
+        abstract = True
 
-    filename = models.CharField(max_length=254)
+    filename = models.CharField(max_length=254, default="foo")
     extension = models.CharField(max_length=10, blank=True)
     parent = models.ForeignKey('self', blank=True, null=True)
 
