@@ -11,13 +11,13 @@ from jtx_video.models.video import Video
 class Projection(models.Model):
     title = models.CharField(max_length=254)
     date = models.DateField()
-    poster = models.ImageField(upload_to="posters/projections", blank=True, null=True)
     description = models.TextField(blank=True)
     videos = models.ManyToManyField(Video, through='VideoProjection', related_name='projections')
-    # event = models.ForeignKey(Event, blank=True, null=True)
+    event = models.ForeignKey(Event, related_name='projections')
+    visible = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.title + self.date.strftime(" (%d/%m/%Y)") if self.title == "" else "Projection du" + self.date.strftime(" %d/%m/%Y")
+        return self.title + self.date.strftime(" (%d/%m/%Y)") if self.title != "" else "Projection du" + self.date.strftime(" %d/%m/%Y")
 
 
 class VideoProjection(models.Model):

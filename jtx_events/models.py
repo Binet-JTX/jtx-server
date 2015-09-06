@@ -24,6 +24,8 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
 
+    # projections = serializers.PrimaryKeyRelatedField(many=True, queryset=Projection.objects.all())
+
     def validate(self, data):
         if data['begin_date'] > data['end_date']:
             raise serializers.ValidationError("end date must occur after begin date")
