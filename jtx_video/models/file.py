@@ -8,7 +8,6 @@ class BaseFile(models.Model):
 
     filename = models.CharField(max_length=254, default="foo")
     extension = models.CharField(max_length=10, blank=True)
-    parent = models.ForeignKey('self', blank=True, null=True)
 
     def level(self):
         lev = 0
@@ -33,6 +32,7 @@ class BaseFile(models.Model):
 
 
 class Folder(BaseFile):
+    parent = models.ForeignKey('self', blank=True, null=True)
     def nb_elements(self):
         return len(self.basefile_set.all())
 
@@ -45,9 +45,11 @@ class VideoFile(BaseFile):
     width = models.IntegerField(blank=True) # in px
     height = models.IntegerField(blank=True) # in px
     video = models.ForeignKey('Video', related_name="files", blank=True)
+    parent = models.ForeignKey(Folder, blank=True, null=True)
 
 
 class SubtitleFile(BaseFile):
     video = models.OneToOneField('Video', related_name="subtitles", blank=True)
+    parent = models.ForeignKey(Folder, blank=True, null=True)
 
     
