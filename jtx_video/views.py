@@ -24,18 +24,6 @@ class VideoViewSet(viewsets.ModelViewSet):
     }
     search_fields = ('title', 'description')
 
-    @decorators.detail_route(methods=['put'])
-    def remove_poster(self, request, pk=None):
-        try:
-            video = Video.objects.get(pk=pk)
-        except Video.DoesNotExist:
-            raise Http404()
-
-        video.poster.delete()
-
-        serializer = self.get_serializer_class()(video)
-        return Response(serializer.data)
-
 
 class ProjectionViewSet(viewsets.ModelViewSet):
     queryset = Projection.objects.all()
