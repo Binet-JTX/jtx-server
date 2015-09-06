@@ -10,8 +10,8 @@ class EventTests(APITestCase):
         self.create_data = {
             'title': 'Test', 
             'description': 'Description test',
-            'begin_date': datetime.datetime(2015, 6, 15, 9, 30, 0, 0, tzinfo=utc),
-            'end_date': datetime.datetime(2015, 8, 28, 17, 0, 0, 0, tzinfo=utc),
+            'begin_date': datetime.datetime(2015, 6, 15, 9),
+            'end_date': datetime.datetime(2015, 8, 28, 17),
         }
         self.event, _ = Event.objects.get_or_create(title='', description='')
 

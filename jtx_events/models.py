@@ -1,19 +1,20 @@
 import datetime
 
 from django.db import models
-from django.utils import timezone
 
 from rest_framework import serializers
 
 
 class Event(models.Model):
     """
-    An event covered by the JTX, or during which have taken place one or more projections
+    An event covered by the JTX, or during which have taken place one or more projections.
+    Everything is an event: a standalone projection is an event too. 
     """
     title = models.CharField(max_length=254)
     description = models.TextField(blank=True)
-    begin_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
-    end_date = models.DateTimeField(default=datetime.datetime(2015, 1, 1, 0, 0, 0, 0, tzinfo=timezone.utc))
+    begin_date = models.DateField(default=datetime.datetime(2015, 1, 1))
+    end_date = models.DateField(default=datetime.datetime(2015, 1, 1))
+    visible = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
