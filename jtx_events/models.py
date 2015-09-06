@@ -21,10 +21,11 @@ class Event(models.Model):
 
 
 class EventSerializer(serializers.ModelSerializer):
+    from jtx_video.models.projection import Projection
     class Meta:
         model = Event
 
-    # projections = serializers.PrimaryKeyRelatedField(many=True, queryset=Projection.objects.all())
+    projections = serializers.PrimaryKeyRelatedField(many=True, queryset=Projection.objects.all())
 
     def validate(self, data):
         if data['begin_date'] > data['end_date']:
