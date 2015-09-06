@@ -15,6 +15,7 @@ class Video(models.Model):
     views = models.PositiveIntegerField(default=0)
     complete = models.BooleanField(default=False)
     poster = models.ImageField(upload_to='posters/videos', max_length=254, blank=True, null=True)
+    visible = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
