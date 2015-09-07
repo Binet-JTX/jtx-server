@@ -15,6 +15,7 @@ class Event(models.Model):
     begin_date = models.DateField(default=datetime.datetime(2015, 1, 1))
     end_date = models.DateField(default=datetime.datetime(2015, 1, 1))
     visible = models.BooleanField(default=True)
+    poster = models.ImageField(upload_to='posters/events', blank=True, null=True)
 
     def __str__(self):
         return self.title

@@ -26,7 +26,7 @@ class VideoViewSet(viewsets.ModelViewSet):
 
 
 class ProjectionViewSet(viewsets.ModelViewSet):
-    queryset = Projection.objects.all()
+    queryset = Projection.objects.order_by('-date')
     serializer_class = ProjectionSerializer
     filter_fields = ('date', )
     search_fields = ('title', )
