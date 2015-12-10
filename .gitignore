@@ -7,3 +7,5 @@ jtx/settings/dev_server.py
 jtx/wsgi.py
 /secret.key
 media/
+db.sqlite3
+*.dot
